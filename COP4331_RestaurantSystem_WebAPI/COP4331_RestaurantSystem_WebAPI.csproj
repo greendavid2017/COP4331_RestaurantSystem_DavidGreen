@@ -128,6 +128,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010151934425_OrderItemsMigration.cs" />
+    <Compile Include="Migrations\202010151934425_OrderItemsMigration.Designer.cs">
+      <DependentUpon>202010151934425_OrderItemsMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="RestaurantSystemDataContext.cs" />
@@ -146,6 +151,11 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\RestaurantSystem\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202010151934425_OrderItemsMigration.resx">
+      <DependentUpon>202010151934425_OrderItemsMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

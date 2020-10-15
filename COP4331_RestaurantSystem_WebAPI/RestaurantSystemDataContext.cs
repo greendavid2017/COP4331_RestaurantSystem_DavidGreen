@@ -31,6 +31,16 @@ namespace COP4331_RestaurantSystem_WebAPI.Models
                 .HasMany(e => e.Orders)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Order>()
+                .HasMany<MenuItem>(e => e.MenuItems)
+                .WithMany(e => e.Orders)
+                .Map(e =>
+                {
+                    e.MapLeftKey("OrderID");
+                    e.MapRightKey("MenuItemID");
+                    e.ToTable("OrderItems");
+                });
         }
     }
 }

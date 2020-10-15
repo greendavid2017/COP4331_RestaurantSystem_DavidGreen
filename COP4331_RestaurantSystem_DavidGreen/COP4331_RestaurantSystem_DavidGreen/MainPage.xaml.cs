@@ -14,5 +14,10 @@ namespace COP4331_RestaurantSystem_DavidGreen
         {
             InitializeComponent();
         }
+
+        private void TestButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }

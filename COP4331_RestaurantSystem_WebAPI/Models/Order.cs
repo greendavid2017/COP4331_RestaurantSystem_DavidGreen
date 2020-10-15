@@ -8,6 +8,11 @@ namespace COP4331_RestaurantSystem_WebAPI.Models
 
     public partial class Order
     {
+        public Order()
+        {
+            MenuItems = new HashSet<MenuItem>();
+        }
+
         [Key]
         public int ID { get; set; }
 
@@ -24,5 +29,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Models
         public DateTime Submitted { get; set; }
 
         public virtual User User { get; set; }
+
+        public virtual ICollection<MenuItem> MenuItems { get; set; }
     }
 }
