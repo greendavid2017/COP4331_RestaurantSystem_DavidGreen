@@ -44,6 +44,9 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
+  <PropertyGroup>
+    <UseShortFileNames>True</UseShortFileNames>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="System" />
@@ -56,9 +59,6 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="System.Net.Http">
-      <Version>4.3.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.6.0.1141" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
@@ -95,9 +95,9 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\COP4331_RestaurantSystem_DavidGreen\COP4331_RestaurantSystem_DavidGreen.csproj">
-      <Project>{E052B6B9-E93A-4365-869F-366224629297}</Project>
-      <Name>COP4331_RestaurantSystem_DavidGreen</Name>
+    <ProjectReference Include="..\COP4331_RestaurantSystem_DavidGreen\RestaurantSystem.csproj">
+      <Project>{3DF48F8D-E2F1-43D8-8672-263A46B7661A}</Project>
+      <Name>RestaurantSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace COP4331_RestaurantSystem_DavidGreen
         
         public RestService()
         {
-            client = new HttpClient();
+            var handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback += (sender, cert, chain, sslPolicyErrors) => { return true; };
+            client = new HttpClient(handler);
         }
 
         public async Task<List<Order>> GetOrders()
@@ -22,7 +25,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
 
             var orders = new List<Order>();
 
-            Uri uri = new Uri("https://localhost:44317/RestaurantSystem/GetOrders");
+            Uri uri = new Uri("https://192.168.1.93:44317/RestaurantSystem/GetOrders");
             HttpResponseMessage response = await client.GetAsync(uri);
             if(response.IsSuccessStatusCode)
             {
@@ -35,10 +38,9 @@ namespace COP4331_RestaurantSystem_DavidGreen
 
         public async Task<List<MenuItem>> GetMenuItems()
         {
-
             var menuItems = new List<MenuItem>();
 
-            Uri uri = new Uri("https://localhost:44317/RestaurantSystem/GetMenuItems");
+            Uri uri = new Uri("https://192.168.1.93:44317/RestaurantSystem/GetMenuItems");
             HttpResponseMessage response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
