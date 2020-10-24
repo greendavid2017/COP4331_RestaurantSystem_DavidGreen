@@ -10,7 +10,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()

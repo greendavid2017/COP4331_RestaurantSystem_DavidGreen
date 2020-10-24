@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="COP4331_RestaurantSystem_DavidGreen.LoginPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.33*"></RowDefinition>
+                <RowDefinition Height="0.33*"></RowDefinition>
+                <RowDefinition Height="0.33*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Entry x:Name="emailEntry"
+                   Placeholder="Email Address"
+                   MaxLength="256"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   ></Entry>
+                <Entry x:Name="passwordEntry"
+                   Placeholder="Password"
+                   IsPassword="True"
+                   MaxLength="512"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   ></Entry>
+                <Button x:Name="loginButton"
+                    Text="Login"
+                    Clicked="loginButton_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    ></Button>
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
