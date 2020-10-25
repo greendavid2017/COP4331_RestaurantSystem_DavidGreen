@@ -105,7 +105,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult Register(String email, String password)
         {
             using(var db = new RestaurantSystemDataContext())
@@ -126,7 +126,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
                     db.SaveChanges();
 
                     // Immediately log the user in upon successfully registering
-                    return RedirectToAction("Login", new { email = email, password = password });
+                    return Login(email, password);
                 }
 
                 // If a user with this email already exists, return a conflict code

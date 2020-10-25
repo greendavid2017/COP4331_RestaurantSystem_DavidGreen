@@ -14,6 +14,9 @@ namespace COP4331_RestaurantSystem_DavidGreen
     {
 
         int onAppearingCounter = 0;
+
+        private System.Collections.IEnumerable items;
+
         public MenuPage()
         {
             InitializeComponent();
@@ -23,30 +26,82 @@ namespace COP4331_RestaurantSystem_DavidGreen
         {
             base.OnAppearing();
 
+            categoryPicker.SelectedIndex = 0;
+
             // There is a bug in Xamarin forms where OnAppearing runs twice for no reason, so use this counter to only run 1/2 of the time
             onAppearingCounter++;
             if(onAppearingCounter % 2 == 1)
             {
+                loadingMenuIndicator.IsRunning = true;
                 RestService service = new RestService();
                 await service.Initialize();
                 var menuItems = await service.GetMenuItems();
-                menuListView.ItemsSource = menuItems;
+                items = menuItems;
+                menuListView.ItemsSource = items;
+                loadingMenuIndicator.IsRunning = false;
             }
         }
 
         private async void menuListView_Refreshing(object sender, EventArgs e)
         {
+            loadingMenuIndicator.IsRunning = true;
             RestService service = new RestService();
             await service.Initialize();
             var menuItems = await service.GetMenuItems();
-            menuListView.ItemsSource = menuItems;
+            items = menuItems;
+            categoryPicker.SelectedIndex = 0;
+            menuListView.ItemsSource = items;
             menuListView.IsRefreshing = false;
+            loadingMenuIndicator.IsRunning = false;
         }
 
         private void flushTokenButton_Clicked(object sender, EventArgs e)
         {
             SecureStorage.Remove("apiToken");
             SecureStorage.Remove("email");
+        }
+
+        private void menuSearchBar_SearchButtonPressed(object sender, EventArgs e)
+        {
+            categoryPicker.SelectedIndex = 0;
+            var menuItemsList = items.Cast<Models.MenuItem>().ToList().Where(i => i.Name.ToLowerInvariant().Contains(menuSearchBar.Text.ToLowerInvariant()));
+            menuListView.ItemsSource = menuItemsList;
+        }
+
+        private void menuSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(e.NewTextValue == String.Empty || e.NewTextValue == null)
+            {
+                menuListView_Refreshing(sender, e);
+            }
+        }
+
+        private void categoryPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(categoryPicker.SelectedIndex > 0 && items != null && items.Cast<Models.MenuItem>().ToList().Count() > 0)
+            {
+                try
+                {
+                    var menuItemsList = items.Cast<Models.MenuItem>().ToList().Where(i => i.Category == categoryPicker.SelectedIndex - 1);
+                    menuListView.ItemsSource = menuItemsList;
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
+            else if(categoryPicker.SelectedIndex == 0 && items != null && items.Cast<Models.MenuItem>().ToList().Count() > 0)
+            {
+                menuListView.ItemsSource = items;
+            }
+            
+        }
+
+        private async void menuListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var selectedItem = e.Item as Models.MenuItem;
+            await Shell.Current.GoToAsync($"addtocart?id={selectedItem.ID}&name={selectedItem.Name}&price={selectedItem.Price.ToString("F")}&category={selectedItem.Category.ToString()}");
+            //var accepted = await DisplayAlert("Confirm Selection", selectedItem.Name + "\n$" + selectedItem.Price.ToString("F"), "Add", "Cancel");
         }
     }
 }

@@ -10,25 +10,25 @@ using Xamarin.Forms.Xaml;
 namespace COP4331_RestaurantSystem_DavidGreen
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class RegisterPage : ContentPage
     {
-        public LoginPage()
+        public RegisterPage()
         {
             InitializeComponent();
         }
 
         protected override bool OnBackButtonPressed()
         {
-            return false;
+            return base.OnBackButtonPressed();
         }
 
-        private async void loginButton_Clicked(object sender, EventArgs e)
+        private async void registerButton_Clicked(object sender, EventArgs e)
         {
             RestService service = new RestService();
             service.InitializeLogin();
 
-            var token = await service.Login(emailEntry.Text, passwordEntry.Text);
-            if(token != null)
+            var token = await service.Register(emailEntry.Text, passwordEntry.Text);
+            if (token != null)
             {
                 try
                 {
@@ -36,22 +36,21 @@ namespace COP4331_RestaurantSystem_DavidGreen
                     await SecureStorage.SetAsync("email", emailEntry.Text);
                     await Shell.Current.GoToAsync("//menu");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     // If device does not support secure storage may get an exception
+                    await DisplayAlert("Device Incompatible", "Your device does not support Secure Storage and is therefore not compatible with this application.", "OK");
                 }
-
-                await DisplayAlert("Hooray!", "Hooray!", "Hooray!");
             }
             else
             {
-                await DisplayAlert("Oh no!", "Oh no!", "Oh no!");
+                await DisplayAlert("Registration Failed", "A user with this email already exists. Please login instead.", "OK");
             }
         }
 
-        private async void registerButton_Clicked(object sender, EventArgs e)
+        private async void cancelButton_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("register");
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

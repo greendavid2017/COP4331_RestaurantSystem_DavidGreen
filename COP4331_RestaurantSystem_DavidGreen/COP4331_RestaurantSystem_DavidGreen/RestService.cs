@@ -87,6 +87,19 @@ namespace COP4331_RestaurantSystem_DavidGreen
             return null;
         }
 
+        public async Task<String> Register(string email, string password)
+        {
+            var json = JsonConvert.SerializeObject(new { email = email, password = password });
+            var response = await client.PostAsync("RestaurantSystem/Register", new StringContent(json, Encoding.UTF8, "application/json"));
+            if (response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                string tokenString = content;
+                return tokenString;
+            }
+            return null;
+        }
+
         public async Task<List<Models.MenuItem>> GetMenuItems()
         {
             var menuItems = new List<Models.MenuItem>();

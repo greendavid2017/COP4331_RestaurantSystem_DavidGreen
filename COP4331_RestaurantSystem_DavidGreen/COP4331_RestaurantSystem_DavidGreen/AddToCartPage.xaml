@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="COP4331_RestaurantSystem_DavidGreen.AddToCartPage"
+             Shell.PresentationMode="ModalAnimated"
+             BackgroundColor="#00000000"
+             >
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.25*"></RowDefinition>
+                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition Height="0.25*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Frame x:Name="modalBackgroundFrame"
+                   BackgroundColor="White"
+                   CornerRadius="20"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   BorderColor="Black"
+                   HasShadow="False"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   >
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label x:Name="itemNameLabel"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           FontSize="Medium"
+                           ></Label>
+                    <Label x:Name="itemPriceLabel"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           FontSize="Medium"
+                           ></Label>
+                    <Label x:Name="amountLabel"
+                           Text="{Binding Source={x:Reference amountStepper}, Path=Value, StringFormat='Amount: {0}'}"
+                           Grid.Row="2"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           FontSize="Medium"
+                           ></Label>
+                    <Stepper x:Name="amountStepper"
+                             Minimum="1"
+                             Maximum="99"
+                             Increment="1"
+                             Grid.Row="3"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             ></Stepper>
+                    <Button x:Name="backButton"
+                            Text="Back"
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"
+                            Clicked="backButton_Clicked"
+                            ></Button>
+                    <Button x:Name="addButton"
+                            Text="Add"
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"
+                            Clicked="addButton_Clicked"
+                            ></Button>
+                    
+                    
+                </Grid>
+
+            </Frame>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
