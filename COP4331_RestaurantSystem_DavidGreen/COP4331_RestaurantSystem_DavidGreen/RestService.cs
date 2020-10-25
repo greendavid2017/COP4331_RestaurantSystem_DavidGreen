@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace COP4331_RestaurantSystem_DavidGreen
 {
@@ -16,17 +17,46 @@ namespace COP4331_RestaurantSystem_DavidGreen
         
         public RestService()
         {
+            
+        }
+
+        public async Task Initialize()
+        {
             var handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback += (sender, cert, chain, sslPolicyErrors) => { return true; };
             client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://192.168.1.93:44317/");
-            var apiToken = SecureStorage.GetAsync("apiToken").Result;
-            var email = SecureStorage.GetAsync("email").Result;
-            if(apiToken != null && email != null)
+            var apiToken = await SecureStorage.GetAsync("apiToken");
+            var email = await SecureStorage.GetAsync("email");
+
+            if (apiToken != null && email != null)
             {
                 client.DefaultRequestHeaders.Add("apiToken", apiToken);
                 client.DefaultRequestHeaders.Add("email", email);
+
+                // If your current token is not valid we need to make the user re-login
+                if (await (CheckToken()) == false)
+                {
+                    await Shell.Current.GoToAsync("login");
+                }
+
+                return;
             }
+            await Shell.Current.GoToAsync("login");
+        }
+
+        public void InitializeLogin()
+        {
+            var handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback += (sender, cert, chain, sslPolicyErrors) => { return true; };
+            client = new HttpClient(handler);
+            client.BaseAddress = new Uri("https://192.168.1.93:44317/");
+        }
+
+        public async Task<bool> CheckToken()
+        {
+            HttpResponseMessage response = await client.GetAsync("RestaurantSystem/CheckToken");
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<List<Order>> GetOrders()
@@ -34,8 +64,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
 
             var orders = new List<Order>();
 
-            Uri uri = new Uri("RestaurantSystem/GetOrders");
-            HttpResponseMessage response = await client.GetAsync(uri);
+            HttpResponseMessage response = await client.GetAsync("RestaurantSystem/GetOrder");
             if(response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
@@ -58,16 +87,14 @@ namespace COP4331_RestaurantSystem_DavidGreen
             return null;
         }
 
-        public async Task<List<MenuItem>> GetMenuItems()
+        public async Task<List<Models.MenuItem>> GetMenuItems()
         {
-            var menuItems = new List<MenuItem>();
-
-            Uri uri = new Uri("RestaurantSystem/GetMenuItems");
-            HttpResponseMessage response = await client.GetAsync(uri);
+            var menuItems = new List<Models.MenuItem>();
+            HttpResponseMessage response = await client.GetAsync("RestaurantSystem/GetMenuItems");
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                menuItems = JsonConvert.DeserializeObject<List<MenuItem>>(content);
+                menuItems = JsonConvert.DeserializeObject<List<Models.MenuItem>>(content);
                 return menuItems;
             }
             return menuItems;

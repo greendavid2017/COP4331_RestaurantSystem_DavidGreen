@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:COP4331_RestaurantSystem_DavidGreen"
+             x:Class="COP4331_RestaurantSystem_DavidGreen.AppShell">
+    <FlyoutItem Title="Menu" Route="menu">
+        <ShellContent ContentTemplate="{DataTemplate pages:MenuPage}"></ShellContent>
+    </FlyoutItem>
+</Shell>

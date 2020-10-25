@@ -5,6 +5,7 @@ using System.Web;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace COP4331_RestaurantSystem_WebAPI.Helpers
 {
@@ -33,10 +34,12 @@ namespace COP4331_RestaurantSystem_WebAPI.Helpers
         // AES encryption code sourced from Microsoft System.Security.Cryptography documentation
         public static string aesCipher(string value, string key)
         {
-            using(Aes aes = Aes.Create())
+            value = value.Replace("\"", "");
+            var trimmedKey = Regex.Replace(key, @"[^0-9a-zA-Z]+", ",").Replace("\"", "");
+            using (Aes aes = Aes.Create())
             {
                 // Combine the private key with the key passed in
-                aes.Key = Encoding.UTF8.GetBytes((privateKey + key).Length > 32 ? (privateKey + key).Substring(0, 32) : (privateKey + key));
+                aes.Key = Encoding.UTF8.GetBytes((privateKey + trimmedKey).Length > 32 ? (privateKey + trimmedKey).Substring(0, 32) : (privateKey + trimmedKey));
                 aes.IV = new byte[16];
                 var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
@@ -58,10 +61,12 @@ namespace COP4331_RestaurantSystem_WebAPI.Helpers
         // AES decryption code sourced from Microsoft System.Security.Cryptography documentation
         public static string aesDecipher(string value, string key)
         {
+            value = value.Replace("\"", "");
+            var trimmedKey = Regex.Replace(key, @"[^0-9a-zA-Z]+", ",").Replace("\"", "");
             using (Aes aes = Aes.Create())
             {
                 // Combine the private key with the key passed in
-                aes.Key = Encoding.UTF8.GetBytes((privateKey + key).Length > 32 ? (privateKey + key).Substring(0, 32) : (privateKey + key));
+                aes.Key = Encoding.UTF8.GetBytes((privateKey + trimmedKey).Length > 32 ? (privateKey + trimmedKey).Substring(0, 32) : (privateKey + trimmedKey));
                 aes.IV = new byte[16];
                 var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 

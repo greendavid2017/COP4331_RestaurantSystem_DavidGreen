@@ -18,6 +18,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
         private async void TestButton_Clicked(object sender, EventArgs e)
         {
             RestService service = new RestService();
+            await service.Initialize();
             var items = await service.GetMenuItems();
 
         }

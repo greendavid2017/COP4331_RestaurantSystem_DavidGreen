@@ -17,9 +17,15 @@ namespace COP4331_RestaurantSystem_DavidGreen
             InitializeComponent();
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            return false;
+        }
+
         private async void loginButton_Clicked(object sender, EventArgs e)
         {
             RestService service = new RestService();
+            service.InitializeLogin();
 
             var token = await service.Login(emailEntry.Text, passwordEntry.Text);
             if(token != null)
@@ -28,6 +34,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
                 {
                     await SecureStorage.SetAsync("apiToken", token);
                     await SecureStorage.SetAsync("email", emailEntry.Text);
+                    await Shell.Current.GoToAsync("//menu");
                 }
                 catch(Exception ex)
                 {
