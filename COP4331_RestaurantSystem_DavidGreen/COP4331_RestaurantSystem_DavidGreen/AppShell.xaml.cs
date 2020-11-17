@@ -18,6 +18,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
             Routing.RegisterRoute("login", typeof(LoginPage));
             Routing.RegisterRoute("register", typeof(RegisterPage));
             Routing.RegisterRoute("addtocart", typeof(AddToCartPage));
+            Routing.RegisterRoute("placeorder", typeof(PlaceOrderPage));
         }
 
     }

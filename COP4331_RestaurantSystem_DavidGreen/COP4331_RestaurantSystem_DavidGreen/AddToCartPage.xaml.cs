@@ -16,31 +16,26 @@ namespace COP4331_RestaurantSystem_DavidGreen
     [QueryProperty("Price", "price")]
     public partial class AddToCartPage : ContentPage
     {
-
-        public String ID { get; set; }
-
-        public String Name { get; set; }
-
-        public String Category { get; set; }
-
-        public String Price { get; set; }
-
         private Models.MenuItem item;
 
-        public AddToCartPage()
+        private List<Tuple<Models.MenuItem, int>> orderItems;
+
+        public AddToCartPage(ref List<Tuple<Models.MenuItem, int>> orderItems, Models.MenuItem item)
         {
+            this.orderItems = orderItems;
+            this.item = item;
             InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            item = new Models.MenuItem(){
+            /*item = new Models.MenuItem(){
                 ID = Int32.Parse(ID),
                 Name = Name,
                 Category = Int32.Parse(Category),
                 Price = Decimal.Parse(Price)
-            };
+            };*/
 
             itemNameLabel.Text = item.Name;
             itemPriceLabel.Text = item.Price.ToString("F");
@@ -54,6 +49,8 @@ namespace COP4331_RestaurantSystem_DavidGreen
         private async void addButton_Clicked(object sender, EventArgs e)
         {
             // Add item to cart here
+            orderItems.Add(new Tuple<Models.MenuItem, int>(item, Convert.ToInt32(amountStepper.Value)));
+
 
             await Shell.Current.GoToAsync("..");
         }

@@ -91,8 +91,12 @@
                        VerticalOptions="FillAndExpand"
                        TextChanged="menuSearchBar_TextChanged"
                        ></SearchBar>
-
-            <Button x:Name="flushTokenButton" Clicked="flushTokenButton_Clicked" Text="Flush me" Grid.Row="3" HorizontalOptions="Center"></Button>
+            <StackLayout Orientation="Horizontal"
+                         Grid.Row="3">
+                <Button x:Name="logOutButton" Clicked="logOutButton_Clicked" Text="Log Out" HorizontalOptions="Center"></Button>
+                         <Button x:Name="viewOrderButton" Clicked="viewOrderButton_Clicked" Text="View Order" HorizontalOptions="Center"></Button>
+            </StackLayout>
+            
             
         </Grid>
     </ContentPage.Content>

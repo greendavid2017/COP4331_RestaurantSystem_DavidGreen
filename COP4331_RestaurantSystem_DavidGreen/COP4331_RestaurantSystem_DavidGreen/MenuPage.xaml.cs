@@ -17,8 +17,11 @@ namespace COP4331_RestaurantSystem_DavidGreen
 
         private System.Collections.IEnumerable items;
 
+        private List<Tuple<Models.MenuItem, int>> orderItems;
+
         public MenuPage()
         {
+            this.orderItems = new List<Tuple<Models.MenuItem, int>>();
             InitializeComponent();
         }
 
@@ -53,12 +56,6 @@ namespace COP4331_RestaurantSystem_DavidGreen
             menuListView.ItemsSource = items;
             menuListView.IsRefreshing = false;
             loadingMenuIndicator.IsRunning = false;
-        }
-
-        private void flushTokenButton_Clicked(object sender, EventArgs e)
-        {
-            SecureStorage.Remove("apiToken");
-            SecureStorage.Remove("email");
         }
 
         private void menuSearchBar_SearchButtonPressed(object sender, EventArgs e)
@@ -100,8 +97,20 @@ namespace COP4331_RestaurantSystem_DavidGreen
         private async void menuListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             var selectedItem = e.Item as Models.MenuItem;
-            await Shell.Current.GoToAsync($"addtocart?id={selectedItem.ID}&name={selectedItem.Name}&price={selectedItem.Price.ToString("F")}&category={selectedItem.Category.ToString()}");
+            await Navigation.PushModalAsync(new AddToCartPage(ref this.orderItems, selectedItem));
+            //await Shell.Current.GoToAsync($"addtocart?id={selectedItem.ID}&name={selectedItem.Name}&price={selectedItem.Price.ToString("F")}&category={selectedItem.Category.ToString()}");
             //var accepted = await DisplayAlert("Confirm Selection", selectedItem.Name + "\n$" + selectedItem.Price.ToString("F"), "Add", "Cancel");
+        }
+
+        private async void viewOrderButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new PlaceOrderPage(ref this.orderItems));
+        }
+
+        private void logOutButton_Clicked(object sender, EventArgs e)
+        {
+            SecureStorage.Remove("email");
+            SecureStorage.Remove("apiToken");
         }
     }
 }
