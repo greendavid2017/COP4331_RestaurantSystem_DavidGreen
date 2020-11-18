@@ -10,7 +10,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Models
     {
         public Order()
         {
-            MenuItems = new HashSet<MenuItem>();
+            OrderItems = new HashSet<OrderItem>();
         }
 
         [Key]
@@ -30,6 +30,6 @@ namespace COP4331_RestaurantSystem_WebAPI.Models
 
         public virtual User User { get; set; }
 
-        public virtual ICollection<MenuItem> MenuItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

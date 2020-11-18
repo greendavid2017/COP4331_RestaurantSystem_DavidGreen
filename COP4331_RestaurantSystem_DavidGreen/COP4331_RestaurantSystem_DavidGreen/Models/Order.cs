@@ -4,11 +4,7 @@ namespace COP4331_RestaurantSystem_DavidGreen.Models
     using System.Collections.Generic;
 
     public partial class Order
-    {
-        public Order()
-        {
-            MenuItems = new HashSet<MenuItem>();
-        }
+    { 
 
         public int ID { get; set; }
 
@@ -20,8 +16,6 @@ namespace COP4331_RestaurantSystem_DavidGreen.Models
 
         public DateTime Submitted { get; set; }
 
-        public User User { get; set; }
-
-        public ICollection<MenuItem> MenuItems { get; set; }
+        public virtual User User { get; set; }
     }
 }

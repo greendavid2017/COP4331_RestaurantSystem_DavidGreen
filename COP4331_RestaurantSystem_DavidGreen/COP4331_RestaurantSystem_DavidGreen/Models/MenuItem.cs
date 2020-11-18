@@ -1,14 +1,10 @@
 namespace COP4331_RestaurantSystem_DavidGreen.Models
 {
+    using System;
     using System.Collections.Generic;
 
     public partial class MenuItem
     {
-
-        public MenuItem()
-        {
-            Orders = new HashSet<Order>();
-        }
 
         public int ID { get; set; }
 
@@ -18,6 +14,5 @@ namespace COP4331_RestaurantSystem_DavidGreen.Models
 
         public decimal Price { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
     }
 }
