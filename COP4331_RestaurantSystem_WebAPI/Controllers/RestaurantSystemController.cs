@@ -48,11 +48,18 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult CheckToken()
+        {
+            return (isTokenValid() ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.Unauthorized));
+        }
+
         // GET: RestaurantSystem/GetMenuItems
+        [HttpGet]
         public ActionResult GetMenuItems()
         {
-            if (!isTokenValid())
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+           // if (!isTokenValid())
+           //     return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
 
             using(var db = new RestaurantSystemDataContext())
             {
@@ -86,7 +93,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
                 {
                     // Create a token which will be good for three days from time of login
                     var ciphered = EncryptionHelper.aesCipher(DateTime.Now.AddDays(3).ToString(), email);
-
+                    var deciphered = EncryptionHelper.aesDecipher(ciphered, email);
                     // Return the token
                     return Json(ciphered);
 
@@ -98,7 +105,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult Register(String email, String password)
         {
             using(var db = new RestaurantSystemDataContext())
@@ -119,7 +126,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
                     db.SaveChanges();
 
                     // Immediately log the user in upon successfully registering
-                    return RedirectToAction("Login", new { email = email, password = password });
+                    return Login(email, password);
                 }
 
                 // If a user with this email already exists, return a conflict code

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="COP4331_RestaurantSystem_DavidGreen.MenuPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="0.1*"></RowDefinition>
+                <RowDefinition Height="0.1*"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Picker x:Name="categoryPicker"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    SelectedIndexChanged="categoryPicker_SelectedIndexChanged"
+                    >
+                     <Picker.Items>
+                         <x:String>All</x:String>
+                         <x:String>Main Dishes</x:String>
+                         <x:String>Appetizers</x:String>
+                         <x:String>Desserts</x:String>
+                         <x:String>Drinks</x:String>
+                     </Picker.Items>
+            </Picker>
+
+            <ActivityIndicator x:Name="loadingMenuIndicator"
+                               IsRunning="False"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               ></ActivityIndicator>
+            
+            <ListView x:Name="menuListView"
+                      Grid.Row="1"
+                      Grid.Column="0"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      IsPullToRefreshEnabled="True"
+                      Refreshing="menuListView_Refreshing"
+                      SelectionMode="None"
+                      ItemTapped="menuListView_ItemTapped"
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.75*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="{Binding Name}"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       HorizontalOptions="Start"
+                                       VerticalOptions="Center"
+                                       FontSize="Medium"
+                                       ></Label>
+                                <Label Text="{Binding Price}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Center"
+                                       FontSize="Medium"
+                                       ></Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <SearchBar x:Name="menuSearchBar"
+                       Placeholder="Search Menu"
+                       HorizontalTextAlignment="Start"
+                       SearchButtonPressed="menuSearchBar_SearchButtonPressed"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       TextChanged="menuSearchBar_TextChanged"
+                       ></SearchBar>
+            <StackLayout Orientation="Horizontal"
+                         Grid.Row="3">
+                <Button x:Name="logOutButton" Clicked="logOutButton_Clicked" Text="Log Out" HorizontalOptions="Center"></Button>
+                         <Button x:Name="viewOrderButton" Clicked="viewOrderButton_Clicked" Text="View Order" HorizontalOptions="Center"></Button>
+            </StackLayout>
+            
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
