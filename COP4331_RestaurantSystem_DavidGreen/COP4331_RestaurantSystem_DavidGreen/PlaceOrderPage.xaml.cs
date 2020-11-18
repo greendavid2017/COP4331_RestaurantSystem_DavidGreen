@@ -20,6 +20,13 @@ namespace COP4331_RestaurantSystem_DavidGreen
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            cartListView.ItemsSource = orderItems;
+            totalPriceLabel.Text = calculateTotalPrice().ToString("$0.00");
+        }
+
         private void testClearButton_Clicked(object sender, EventArgs e)
         {
             this.orderItems.Clear();
@@ -36,6 +43,27 @@ namespace COP4331_RestaurantSystem_DavidGreen
             totalPrice *= (decimal)1.06;
 
             return totalPrice;
+        }
+
+        // Called when the user taps an item in their cart
+        private async void orderItemSelected(object sender, ItemTappedEventArgs e)
+        {
+            // Confirm if the user would like to delete the item from their cart
+            var item = e.Item as Tuple<Models.MenuItem, int>;
+            bool deleteItem = await DisplayAlert("Delete Item", "Are you sure you would like to delete " + item.Item1.Name + " from your cart?", "Delete", "Cancel");
+            if(deleteItem)
+            {
+                orderItems.Remove(item);
+                cartListView.ItemsSource = null;
+                cartListView.ItemsSource = orderItems;
+                totalPriceLabel.Text = calculateTotalPrice().ToString("$0.00");
+            }
+        }
+
+        // Called when the user clicks the Place Order button
+        private void placeOrder(object sender, EventArgs e)
+        {
+            // Place an order here
         }
     }
 }
