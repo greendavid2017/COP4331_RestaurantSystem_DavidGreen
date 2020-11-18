@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -61,9 +61,43 @@ namespace COP4331_RestaurantSystem_DavidGreen
         }
 
         // Called when the user clicks the Place Order button
-        private void placeOrder(object sender, EventArgs e)
+        private async void placeOrder(object sender, EventArgs e)
         {
-            // Place an order here
+            if(orderItems.Count == 0)
+            {
+                await DisplayAlert("No Items", "Your order is empty. Please add items and try again.", "OK");
+                return;
+            }
+
+            RestService service = new RestService();
+            await service.Initialize();
+            List<Models.MenuItem> items = new List<Models.MenuItem>();
+
+            foreach(Tuple<Models.MenuItem, int> orderItem in orderItems)
+            {
+                for(int i = 0; i < orderItem.Item2; i++)
+                {
+                    items.Add(orderItem.Item1);
+                }
+            }
+
+            var email = await SecureStorage.GetAsync("email");
+
+            bool orderCreated = await service.CreateOrder(email, items);
+
+            if(!orderCreated)
+            {
+                await DisplayAlert("Order Error", "Something went wrong placing your order. Please try again.", "OK");
+            }
+            else
+            {
+                orderItems.Clear();
+                cartListView.ItemsSource = null;
+                cartListView.ItemsSource = orderItems;
+                totalPriceLabel.Text = calculateTotalPrice().ToString("$0.00");
+                await DisplayAlert("Order Successful", "Your order has successfully been placed. Thank you!", "OK");
+            }
+
         }
     }
 }

@@ -100,6 +100,17 @@ namespace COP4331_RestaurantSystem_DavidGreen
             return null;
         }
 
+        public async Task<bool> UpdateOrderStatus(int orderId, int orderStatus)
+        {
+            var json = JsonConvert.SerializeObject(new { orderId = orderId, orderStatus = orderStatus });
+            var response = await client.PostAsync("RestaurantSystem/Register", new StringContent(json, Encoding.UTF8, "application/json"));
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public async Task<List<Models.MenuItem>> GetMenuItems()
         {
             var menuItems = new List<Models.MenuItem>();
@@ -111,6 +122,28 @@ namespace COP4331_RestaurantSystem_DavidGreen
                 return menuItems;
             }
             return menuItems;
+        }
+
+        public async Task<List<Models.Order>> GetUserOrders(String email)
+        {
+            HttpResponseMessage response = await client.GetAsync($"RestaurantSystem/GetUserOrders?email={email}");
+            if(response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<Models.Order>>(content);
+            }
+            return null;
+        }
+
+        public async Task<bool> CreateOrder(String email, List<Models.MenuItem> orderItems)
+        {
+            var json = JsonConvert.SerializeObject(new {email = email, orderItems = orderItems});
+            HttpResponseMessage response = await client.PostAsync("RestaurantSystem/CreateOrder", new StringContent(json, Encoding.UTF8, "application/json"));
+            if(response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

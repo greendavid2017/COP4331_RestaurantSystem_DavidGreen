@@ -1,5 +1,6 @@
 namespace COP4331_RestaurantSystem_DavidGreen.Models
 {
+    using System;
     using System.Collections.Generic;
 
     public partial class User
@@ -17,6 +18,6 @@ namespace COP4331_RestaurantSystem_DavidGreen.Models
 
         public bool IsEmployee { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

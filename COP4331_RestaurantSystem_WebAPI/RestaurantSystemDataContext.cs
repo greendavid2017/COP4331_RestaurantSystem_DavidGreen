@@ -1,9 +1,10 @@
-namespace COP4331_RestaurantSystem_WebAPI.Models
+namespace COP4331_RestaurantSystem_WebAPI
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using COP4331_RestaurantSystem_WebAPI.Models;
 
     public partial class RestaurantSystemDataContext : DbContext
     {
@@ -15,6 +16,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Models
 
         public virtual DbSet<MenuItem> MenuItems { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderItem> OrderItems { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -33,14 +35,8 @@ namespace COP4331_RestaurantSystem_WebAPI.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Order>()
-                .HasMany<MenuItem>(e => e.MenuItems)
-                .WithMany(e => e.Orders)
-                .Map(e =>
-                {
-                    e.MapLeftKey("OrderID");
-                    e.MapRightKey("MenuItemID");
-                    e.ToTable("OrderItems");
-                });
+                .HasMany(e => e.OrderItems)
+                .WithRequired(e => e.Order);
         }
     }
 }

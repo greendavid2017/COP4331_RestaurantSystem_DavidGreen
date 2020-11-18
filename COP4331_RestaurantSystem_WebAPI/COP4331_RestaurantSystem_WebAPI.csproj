@@ -128,14 +128,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\AccountHandler.cs" />
+    <Compile Include="Handlers\MenuHandler.cs" />
+    <Compile Include="Handlers\OrderHandler.cs" />
     <Compile Include="Helpers\EncryptionHelper.cs" />
     <Compile Include="Migrations\202010151934425_OrderItemsMigration.cs" />
     <Compile Include="Migrations\202010151934425_OrderItemsMigration.Designer.cs">
       <DependentUpon>202010151934425_OrderItemsMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011180359305_api-helpers.cs" />
+    <Compile Include="Migrations\202011180359305_api-helpers.Designer.cs">
+      <DependentUpon>202011180359305_api-helpers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderItem.cs" />
     <Compile Include="RestaurantSystemDataContext.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,6 +164,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010151934425_OrderItemsMigration.resx">
       <DependentUpon>202010151934425_OrderItemsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011180359305_api-helpers.resx">
+      <DependentUpon>202011180359305_api-helpers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

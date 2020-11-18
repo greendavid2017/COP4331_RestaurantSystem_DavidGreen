@@ -9,11 +9,6 @@ namespace COP4331_RestaurantSystem_WebAPI.Models
     public partial class MenuItem
     {
 
-        public MenuItem()
-        {
-            Orders = new HashSet<Order>();
-        }
-
         [Key]
         public int ID { get; set; }
 
@@ -27,6 +22,5 @@ namespace COP4331_RestaurantSystem_WebAPI.Models
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }
