@@ -105,7 +105,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
             OrderHandler handler = new OrderHandler();
             var orders = handler.GetUserOrdersDb(email);
 
-            var result = JsonConvert.SerializeObject(user, new JsonSerializerSettings
+            var result = JsonConvert.SerializeObject(orders, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
