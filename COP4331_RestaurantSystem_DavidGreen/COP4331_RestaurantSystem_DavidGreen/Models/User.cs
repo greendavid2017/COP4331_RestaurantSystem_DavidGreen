@@ -5,11 +5,6 @@ namespace COP4331_RestaurantSystem_DavidGreen.Models
 
     public partial class User
     {
-        public User()
-        {
-            Orders = new HashSet<Order>();
-        }
-
         public int ID { get; set; }
 
         public string Email { get; set; }
@@ -18,6 +13,6 @@ namespace COP4331_RestaurantSystem_DavidGreen.Models
 
         public bool IsEmployee { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="COP4331_RestaurantSystem_DavidGreen.OrderHistoryPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="9*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Text="Orders" FontSize="Large" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="0"></Label>
+            <ListView Grid.Row="1"
+                      x:Name="orderHistoryListView"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      SelectionMode="None"
+                      ItemTapped="orderHistoryListView_ItemTapped"
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="{Binding Submitted}"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       HorizontalOptions="Start"
+                                       VerticalOptions="Center"
+                                       FontSize="Medium"
+                                       ></Label>
+                                <Label Text="{Binding Price}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Center"
+                                       FontSize="Medium"
+                                       ></Label>
+                                <Label Text="{Binding StatusText}"
+                                       Grid.Row="0"
+                                       Grid.Column="2"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Center"
+                                       FontSize="Medium"
+                                       ></Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

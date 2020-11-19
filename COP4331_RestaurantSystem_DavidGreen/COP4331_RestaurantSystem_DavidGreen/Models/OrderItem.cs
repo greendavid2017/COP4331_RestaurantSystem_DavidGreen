@@ -11,8 +11,8 @@ namespace COP4331_RestaurantSystem_DavidGreen.Models
 
         public int OrderID { get; set; }
 
-        public virtual MenuItem MenuItem { get; set; }
+        public MenuItem MenuItem { get; set; }
 
-        public virtual Order Order { get; set; }
+        public Order Order { get; set; }
     }
 }

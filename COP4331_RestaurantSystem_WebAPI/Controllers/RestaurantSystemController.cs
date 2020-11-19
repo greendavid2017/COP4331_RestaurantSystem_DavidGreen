@@ -100,6 +100,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
 
         }
 
+        [HttpGet]
         public ActionResult GetUserOrders(String email)
         {
             OrderHandler handler = new OrderHandler();
@@ -110,7 +111,7 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Content(result);
 
         }
 

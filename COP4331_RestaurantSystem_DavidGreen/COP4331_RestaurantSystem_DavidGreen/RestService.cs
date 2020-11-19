@@ -2,8 +2,10 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -126,13 +128,15 @@ namespace COP4331_RestaurantSystem_DavidGreen
 
         public async Task<List<Models.Order>> GetUserOrders(String email)
         {
+            var orders = new List<Models.Order>();
             HttpResponseMessage response = await client.GetAsync($"RestaurantSystem/GetUserOrders?email={email}");
             if(response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<List<Models.Order>>(content);
+                orders = JsonConvert.DeserializeObject<List<Models.Order>>(content);
+                return orders;
             }
-            return null;
+            return orders;
         }
 
         public async Task<bool> CreateOrder(String email, List<Models.MenuItem> orderItems)
