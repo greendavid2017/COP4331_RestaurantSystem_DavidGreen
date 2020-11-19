@@ -126,17 +126,16 @@ namespace COP4331_RestaurantSystem_DavidGreen
             return menuItems;
         }
 
-        public async Task<List<Models.Order>> GetUserOrders(String email)
+        public async Task<Models.User> GetUserOrders(String email)
         {
-            var orders = new List<Models.Order>();
             HttpResponseMessage response = await client.GetAsync($"RestaurantSystem/GetUserOrders?email={email}");
             if(response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                orders = JsonConvert.DeserializeObject<List<Models.Order>>(content);
-                return orders;
+                var user = JsonConvert.DeserializeObject<Models.User>(content);
+                return user;
             }
-            return orders;
+            return null;
         }
 
         public async Task<bool> CreateOrder(String email, List<Models.MenuItem> orderItems)

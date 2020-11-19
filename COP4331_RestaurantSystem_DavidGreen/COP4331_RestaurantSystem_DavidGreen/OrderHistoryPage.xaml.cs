@@ -13,6 +13,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
     public partial class OrderHistoryPage : ContentPage
     {
         private int onAppearingCounter = 0;
+        private bool isEmployee = false;
         public OrderHistoryPage()
         {
             InitializeComponent();
@@ -29,7 +30,16 @@ namespace COP4331_RestaurantSystem_DavidGreen
                 RestService service = new RestService();
                 await service.Initialize();
                 var email = await SecureStorage.GetAsync("email");
-                var orders = await service.GetUserOrders(email);
+                var user = await service.GetUserOrders(email);
+                if(user.IsEmployee)
+                {
+                    await DisplayAlert("Yay!", "You are an employee!", "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Oh no!", "You are not employee!", "OK");
+                }
+                var orders = user.Orders;
                 orderHistoryListView.ItemsSource = null;
                 orders.Sort(delegate (Models.Order o1, Models.Order o2)
                 {
@@ -71,7 +81,8 @@ namespace COP4331_RestaurantSystem_DavidGreen
             RestService service = new RestService();
             await service.Initialize();
             var email = await SecureStorage.GetAsync("email");
-            var orders = await service.GetUserOrders(email);
+            var user = await service.GetUserOrders(email);
+            var orders = user.Orders;
             orderHistoryListView.ItemsSource = null;
             orders.Sort(delegate (Models.Order o1, Models.Order o2)
             {

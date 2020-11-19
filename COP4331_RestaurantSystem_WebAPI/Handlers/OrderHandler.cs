@@ -9,12 +9,12 @@ namespace COP4331_RestaurantSystem_WebAPI.Handlers
 {
     public class OrderHandler
     {
-        public List<Order> GetUserOrdersDb(String email)
+        public User GetUserOrdersDb(String email)
         {
             using (var db = new RestaurantSystemDataContext())
             {
-                var id = db.Users.Where(u => u.Email == email).FirstOrDefault().ID;
-                return db.Orders.Where(o => o.UserID == id).Include(o => o.OrderItems).Include(o => o.OrderItems.Select(i => i.MenuItem)).ToList().Select(o => { o.User = null; return o; }).ToList();
+                var user = db.Users.Where(u => u.Email == email).Include(u => u.Orders.Select(o => o.OrderItems.Select(i => i.MenuItem))).FirstOrDefault();
+                return user;
             }
         }
 

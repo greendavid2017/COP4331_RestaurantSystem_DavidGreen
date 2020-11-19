@@ -104,9 +104,9 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
         public ActionResult GetUserOrders(String email)
         {
             OrderHandler handler = new OrderHandler();
-            var orders = handler.GetUserOrdersDb(email);
+            var user = handler.GetUserOrdersDb(email);
 
-            var result = JsonConvert.SerializeObject(orders, new JsonSerializerSettings
+            var result = JsonConvert.SerializeObject(user, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
