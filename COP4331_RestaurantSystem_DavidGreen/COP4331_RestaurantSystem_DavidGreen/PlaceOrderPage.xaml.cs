@@ -96,6 +96,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
                 cartListView.ItemsSource = orderItems;
                 totalPriceLabel.Text = calculateTotalPrice().ToString("$0.00");
                 await DisplayAlert("Order Successful", "Your order has successfully been placed. Thank you!", "OK");
+                await Shell.Current.GoToAsync("..");
             }
 
         }

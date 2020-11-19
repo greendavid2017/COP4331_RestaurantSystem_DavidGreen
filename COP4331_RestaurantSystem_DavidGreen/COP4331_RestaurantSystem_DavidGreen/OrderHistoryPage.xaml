@@ -11,6 +11,13 @@
 
             <Label Text="Orders" FontSize="Large" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                    HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Row="0"></Label>
+            <ActivityIndicator x:Name="loadingOrderHistoryIndicator"
+                               IsRunning="False"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               ></ActivityIndicator>
             <ListView Grid.Row="1"
                       x:Name="orderHistoryListView"
                       HorizontalOptions="FillAndExpand"
