@@ -24,6 +24,8 @@
                       VerticalOptions="FillAndExpand"
                       SelectionMode="None"
                       ItemTapped="orderHistoryListView_ItemTapped"
+                      IsPullToRefreshEnabled="True"
+                      Refreshing="orderHistoryListView_Refreshing"
                       >
                 <ListView.ItemTemplate>
                     <DataTemplate>

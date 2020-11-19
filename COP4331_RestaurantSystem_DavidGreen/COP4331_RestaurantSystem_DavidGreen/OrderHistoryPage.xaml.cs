@@ -35,6 +35,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
                 {
                     return DateTime.Compare(o1.Submitted, o2.Submitted) * -1;
                 });
+                orderHistoryListView.ItemsSource = null;
                 orderHistoryListView.ItemsSource = orders;
                 loadingOrderHistoryIndicator.IsRunning = false;
             }
@@ -63,6 +64,22 @@ namespace COP4331_RestaurantSystem_DavidGreen
 
             await DisplayAlert("Order Info", builder.ToString(), "OK");
             builder.Clear();
+        }
+
+        private async void orderHistoryListView_Refreshing(object sender, EventArgs e)
+        {
+            RestService service = new RestService();
+            await service.Initialize();
+            var email = await SecureStorage.GetAsync("email");
+            var orders = await service.GetUserOrders(email);
+            orderHistoryListView.ItemsSource = null;
+            orders.Sort(delegate (Models.Order o1, Models.Order o2)
+            {
+                return DateTime.Compare(o1.Submitted, o2.Submitted) * -1;
+            });
+            orderHistoryListView.ItemsSource = null;
+            orderHistoryListView.ItemsSource = orders;
+            orderHistoryListView.IsRefreshing = false;
         }
     }
 }
