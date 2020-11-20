@@ -22,7 +22,8 @@ namespace COP4331_RestaurantSystem_WebAPI.Handlers
         {
             using (var db = new RestaurantSystemDataContext())
             {
-                return db.Orders.Include(o => o.User).Include(o => o.OrderItems).Include(o => o.OrderItems.Select(i => i.MenuItem)).ToList();
+                var orders = db.Orders.Include(o => o.User).Include(o => o.OrderItems).Include(o => o.OrderItems.Select(i => i.MenuItem)).ToList();
+                return orders;
             }
         }
 

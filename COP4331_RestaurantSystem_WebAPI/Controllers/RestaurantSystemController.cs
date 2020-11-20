@@ -119,7 +119,13 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
         public ActionResult GetOrders()
         {
             OrderHandler handler = new OrderHandler();
-            return Json(handler.GetOrdersDb(), JsonRequestBehavior.AllowGet);
+            var orders = handler.GetOrdersDb();
+            var result = JsonConvert.SerializeObject(orders, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+            return Content(result);
         }
 
         [HttpPost]
@@ -131,5 +137,6 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+
     }
 }

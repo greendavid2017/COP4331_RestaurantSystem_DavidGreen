@@ -6,7 +6,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="9*"></RowDefinition>
+                <RowDefinition Height="8*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Label Text="Orders" FontSize="Large" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
@@ -66,7 +67,21 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
+            <Picker x:Name="employeeOrderFilterPicker"
+                    Grid.Row="2"
+                    Title="Select Orders"
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand"
+                    SelectedIndex="0"
+                    SelectedIndexChanged="employeeOrderFilter_SelectedIndexChanged"
+                    IsEnabled="False"
+                    IsVisible="False"
+                    >
+                <Picker.Items>
+                    <x:String>My Orders</x:String>
+                    <x:String>All Orders</x:String>
+                </Picker.Items>
+            </Picker>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

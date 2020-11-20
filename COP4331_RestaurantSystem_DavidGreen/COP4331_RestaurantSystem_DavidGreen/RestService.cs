@@ -61,16 +61,16 @@ namespace COP4331_RestaurantSystem_DavidGreen
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<List<Order>> GetOrders()
+        public async Task<List<Models.Order>> GetOrders()
         {
 
             var orders = new List<Order>();
 
-            HttpResponseMessage response = await client.GetAsync("RestaurantSystem/GetOrder");
+            HttpResponseMessage response = await client.GetAsync("RestaurantSystem/GetOrders");
             if(response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                orders = JsonConvert.DeserializeObject<List<Order>>(content);
+                orders = JsonConvert.DeserializeObject<List<Models.Order>>(content);
                 return orders;
             }
             return orders;
@@ -105,7 +105,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
         public async Task<bool> UpdateOrderStatus(int orderId, int orderStatus)
         {
             var json = JsonConvert.SerializeObject(new { orderId = orderId, orderStatus = orderStatus });
-            var response = await client.PostAsync("RestaurantSystem/Register", new StringContent(json, Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("RestaurantSystem/UpdateOrderStatus", new StringContent(json, Encoding.UTF8, "application/json"));
             if (response.IsSuccessStatusCode)
             {
                 return true;
@@ -148,5 +148,6 @@ namespace COP4331_RestaurantSystem_DavidGreen
             }
             return false;
         }
+
     }
 }
