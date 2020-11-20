@@ -100,17 +100,18 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
 
         }
 
+        [HttpGet]
         public ActionResult GetUserOrders(String email)
         {
             OrderHandler handler = new OrderHandler();
-            var orders = handler.GetUserOrdersDb(email);
+            var user = handler.GetUserOrdersDb(email);
 
-            var result = JsonConvert.SerializeObject(orders, new JsonSerializerSettings
+            var result = JsonConvert.SerializeObject(user, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Content(result);
 
         }
 
@@ -118,7 +119,13 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
         public ActionResult GetOrders()
         {
             OrderHandler handler = new OrderHandler();
-            return Json(handler.GetOrdersDb(), JsonRequestBehavior.AllowGet);
+            var orders = handler.GetOrdersDb();
+            var result = JsonConvert.SerializeObject(orders, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+            return Content(result);
         }
 
         [HttpPost]
@@ -130,5 +137,6 @@ namespace COP4331_RestaurantSystem_WebAPI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+
     }
 }

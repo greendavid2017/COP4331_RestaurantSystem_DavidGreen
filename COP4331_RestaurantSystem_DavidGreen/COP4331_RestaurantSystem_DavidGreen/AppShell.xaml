@@ -64,4 +64,65 @@
         </Shell.ItemTemplate>
         <ShellContent ContentTemplate="{DataTemplate pages:MenuPage}"></ShellContent>
     </FlyoutItem>
+    <FlyoutItem Title="Orders" Route="orders">
+        <Shell.ItemTemplate>
+            <DataTemplate>
+                <Grid x:Name="FlyoutItemLayout"
+                      HeightRequest="{x:OnPlatform Android=50}"
+                      ColumnSpacing="{x:OnPlatform UWP=0}"
+                      RowSpacing="{x:OnPlatform UWP=0}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor"
+                                    Value="{x:OnPlatform Android=#F2F2F2, iOS=#F2F2F2}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="FlyoutItemLabel"
+                           Grid.Column="0"
+                           Text="{Binding Title}"
+                           FontSize="{x:OnPlatform Android=Medium, iOS=Small}"
+                           HorizontalOptions="{x:OnPlatform UWP=Start}"
+                           HorizontalTextAlignment="{x:OnPlatform UWP=Start}"
+                           FontAttributes="{x:OnPlatform iOS=Bold}"
+                           VerticalTextAlignment="Center">
+                        <Label.TextColor>
+                            <OnPlatform x:TypeArguments="Color">
+                                <OnPlatform.Platforms>
+                                    <On Platform="Android"
+                            Value="#D2000000" />
+                                </OnPlatform.Platforms>
+                            </OnPlatform>
+                        </Label.TextColor>
+                        <Label.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <OnPlatform.Platforms>
+                                    <On Platform="Android"
+                            Value="20, 0, 0, 0" />
+                                </OnPlatform.Platforms>
+                            </OnPlatform>
+                        </Label.Margin>
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <OnPlatform.Platforms>
+                                    <On Platform="Android"
+                                        Value="sans-serif-medium" />
+                                </OnPlatform.Platforms>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                </Grid>
+            </DataTemplate>
+        </Shell.ItemTemplate>
+        <ShellContent ContentTemplate="{DataTemplate pages:OrderHistoryPage}"></ShellContent>
+    </FlyoutItem>
 </Shell>

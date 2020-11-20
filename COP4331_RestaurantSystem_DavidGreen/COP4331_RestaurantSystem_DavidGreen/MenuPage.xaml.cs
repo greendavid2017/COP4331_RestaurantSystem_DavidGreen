@@ -47,7 +47,6 @@ namespace COP4331_RestaurantSystem_DavidGreen
 
         private async void menuListView_Refreshing(object sender, EventArgs e)
         {
-            loadingMenuIndicator.IsRunning = true;
             RestService service = new RestService();
             await service.Initialize();
             var menuItems = await service.GetMenuItems();
@@ -55,7 +54,6 @@ namespace COP4331_RestaurantSystem_DavidGreen
             categoryPicker.SelectedIndex = 0;
             menuListView.ItemsSource = items;
             menuListView.IsRefreshing = false;
-            loadingMenuIndicator.IsRunning = false;
         }
 
         private void menuSearchBar_SearchButtonPressed(object sender, EventArgs e)

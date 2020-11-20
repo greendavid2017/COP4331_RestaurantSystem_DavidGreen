@@ -13,7 +13,8 @@ namespace COP4331_RestaurantSystem_WebAPI.Handlers
         {
             using (var db = new RestaurantSystemDataContext())
             {
-                return db.Users.Where(u => u.Email == email).Include(u => u.Orders).Include(u => u.Orders.Select(o => o.OrderItems)).Include(u => u.Orders.Select(o => o.OrderItems.Select(i => i.MenuItem))).FirstOrDefault();
+                var user = db.Users.Where(u => u.Email == email).Include(u => u.Orders.Select(o => o.OrderItems.Select(i => i.MenuItem))).FirstOrDefault();
+                return user;
             }
         }
 
@@ -21,7 +22,8 @@ namespace COP4331_RestaurantSystem_WebAPI.Handlers
         {
             using (var db = new RestaurantSystemDataContext())
             {
-                return db.Orders.Include(o => o.User).Include(o => o.OrderItems).Include(o => o.OrderItems.Select(i => i.MenuItem)).ToList();
+                var orders = db.Orders.Include(o => o.User).Include(o => o.OrderItems).Include(o => o.OrderItems.Select(i => i.MenuItem)).ToList();
+                return orders;
             }
         }
 
