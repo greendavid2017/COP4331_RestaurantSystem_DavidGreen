@@ -54,7 +54,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
             base.OnAppearing();
         }
 
-        private async void orderHistoryListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void orderSelected(object sender, ItemTappedEventArgs e)
         {
             var order = e.Item as Models.Order;
 
@@ -108,12 +108,12 @@ namespace COP4331_RestaurantSystem_DavidGreen
                 if(selectedIndex != -1)
                 {
                     await service.UpdateOrderStatus(order.ID, selectedIndex);
-                    orderHistoryListView_Refreshing(null, null);
+                    refreshOrders(null, null);
                 }
             }
         }
 
-        private async void orderHistoryListView_Refreshing(object sender, EventArgs e)
+        private async void refreshOrders(object sender, EventArgs e)
         {
             RestService service = new RestService();
             await service.Initialize();
@@ -148,7 +148,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
             orderHistoryListView.IsRefreshing = false;
         }
 
-        private async void employeeOrderFilter_SelectedIndexChanged(object sender, EventArgs e)
+        private async void changeEmployeeOrderFilter(object sender, EventArgs e)
         {
             var picker = (Picker)sender;
             int selectedIndex = picker.SelectedIndex;

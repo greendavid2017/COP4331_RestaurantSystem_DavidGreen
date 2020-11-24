@@ -24,9 +24,9 @@
                       HorizontalOptions="FillAndExpand"
                       VerticalOptions="FillAndExpand"
                       SelectionMode="None"
-                      ItemTapped="orderHistoryListView_ItemTapped"
+                      ItemTapped="orderSelected"
                       IsPullToRefreshEnabled="True"
-                      Refreshing="orderHistoryListView_Refreshing"
+                      Refreshing="refreshOrders"
                       >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -73,7 +73,7 @@
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
                     SelectedIndex="0"
-                    SelectedIndexChanged="employeeOrderFilter_SelectedIndexChanged"
+                    SelectedIndexChanged="changeEmployeeOrderFilter"
                     IsEnabled="False"
                     IsVisible="False"
                     >
