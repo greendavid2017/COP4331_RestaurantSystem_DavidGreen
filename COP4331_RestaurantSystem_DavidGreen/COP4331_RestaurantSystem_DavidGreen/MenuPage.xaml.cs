@@ -45,7 +45,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
             }
         }
 
-        private async void menuListView_Refreshing(object sender, EventArgs e)
+        private async void refreshMenu(object sender, EventArgs e)
         {
             RestService service = new RestService();
             await service.Initialize();
@@ -56,7 +56,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
             menuListView.IsRefreshing = false;
         }
 
-        private void menuSearchBar_SearchButtonPressed(object sender, EventArgs e)
+        private void searchMenu(object sender, EventArgs e)
         {
             categoryPicker.SelectedIndex = 0;
             var menuItemsList = items.Cast<Models.MenuItem>().ToList().Where(i => i.Name.ToLowerInvariant().Contains(menuSearchBar.Text.ToLowerInvariant()));
@@ -67,11 +67,11 @@ namespace COP4331_RestaurantSystem_DavidGreen
         {
             if(e.NewTextValue == String.Empty || e.NewTextValue == null)
             {
-                menuListView_Refreshing(sender, e);
+                refreshMenu(sender, e);
             }
         }
 
-        private void categoryPicker_SelectedIndexChanged(object sender, EventArgs e)
+        private void filterCategory(object sender, EventArgs e)
         {
             if(categoryPicker.SelectedIndex > 0 && items != null && items.Cast<Models.MenuItem>().ToList().Count() > 0)
             {
@@ -92,7 +92,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
             
         }
 
-        private async void menuListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void menuItemClicked(object sender, ItemTappedEventArgs e)
         {
             var selectedItem = e.Item as Models.MenuItem;
             await Navigation.PushModalAsync(new AddToCartPage(ref this.orderItems, selectedItem));
@@ -100,7 +100,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
             //var accepted = await DisplayAlert("Confirm Selection", selectedItem.Name + "\n$" + selectedItem.Price.ToString("F"), "Add", "Cancel");
         }
 
-        private async void viewOrderButton_Clicked(object sender, EventArgs e)
+        private async void openPlaceOrderPage(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new PlaceOrderPage(ref this.orderItems));
         }

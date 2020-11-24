@@ -20,7 +20,7 @@
                     Grid.Column="0"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
-                    SelectedIndexChanged="categoryPicker_SelectedIndexChanged"
+                    SelectedIndexChanged="filterCategory"
                     >
                      <Picker.Items>
                          <x:String>All</x:String>
@@ -45,9 +45,9 @@
                       HorizontalOptions="FillAndExpand"
                       VerticalOptions="FillAndExpand"
                       IsPullToRefreshEnabled="True"
-                      Refreshing="menuListView_Refreshing"
+                      Refreshing="refreshMenu"
                       SelectionMode="None"
-                      ItemTapped="menuListView_ItemTapped"
+                      ItemTapped="menuItemClicked"
                       >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -84,7 +84,7 @@
             <SearchBar x:Name="menuSearchBar"
                        Placeholder="Search Menu"
                        HorizontalTextAlignment="Start"
-                       SearchButtonPressed="menuSearchBar_SearchButtonPressed"
+                       SearchButtonPressed="searchMenu"
                        Grid.Row="2"
                        Grid.Column="0"
                        HorizontalOptions="FillAndExpand"
@@ -94,7 +94,7 @@
             <StackLayout Orientation="Horizontal"
                          Grid.Row="3">
                 <Button x:Name="logOutButton" Clicked="logOutButton_Clicked" Text="Log Out" HorizontalOptions="Center"></Button>
-                         <Button x:Name="viewOrderButton" Clicked="viewOrderButton_Clicked" Text="View Order" HorizontalOptions="Center"></Button>
+                         <Button x:Name="viewOrderButton" Clicked="openPlaceOrderPage" Text="View Order" HorizontalOptions="Center"></Button>
             </StackLayout>
             
             

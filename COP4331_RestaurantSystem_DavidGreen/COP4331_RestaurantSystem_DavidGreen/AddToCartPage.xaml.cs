@@ -41,12 +41,12 @@ namespace COP4331_RestaurantSystem_DavidGreen
             itemPriceLabel.Text = item.Price.ToString("F");
         }
 
-        private async void backButton_Clicked(object sender, EventArgs e)
+        private async void back(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("..");
         }
 
-        private async void addButton_Clicked(object sender, EventArgs e)
+        private async void addToCart(object sender, EventArgs e)
         {
             // Add item to cart here
             orderItems.Add(new Tuple<Models.MenuItem, int>(item, Convert.ToInt32(amountStepper.Value)));

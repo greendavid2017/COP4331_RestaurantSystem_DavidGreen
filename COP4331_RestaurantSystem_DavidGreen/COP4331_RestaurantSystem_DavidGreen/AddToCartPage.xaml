@@ -90,7 +90,7 @@
                             Grid.Column="0"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="Center"
-                            Clicked="backButton_Clicked"
+                            Clicked="back"
                             ></Button>
                     <Button x:Name="addButton"
                             Text="Add"
@@ -98,7 +98,7 @@
                             Grid.Column="2"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="Center"
-                            Clicked="addButton_Clicked"
+                            Clicked="addToCart"
                             ></Button>
                     
                     

@@ -27,11 +27,6 @@ namespace COP4331_RestaurantSystem_DavidGreen
             totalPriceLabel.Text = calculateTotalPrice().ToString("$0.00");
         }
 
-        private void testClearButton_Clicked(object sender, EventArgs e)
-        {
-            this.orderItems.Clear();
-        }
-
         private decimal calculateTotalPrice()
         {
             decimal totalPrice = 0.00M;
