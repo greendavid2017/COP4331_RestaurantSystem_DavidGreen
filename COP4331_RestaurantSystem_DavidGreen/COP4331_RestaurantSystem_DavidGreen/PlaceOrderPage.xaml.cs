@@ -24,16 +24,23 @@ namespace COP4331_RestaurantSystem_DavidGreen
         {
             base.OnAppearing();
             cartListView.ItemsSource = orderItems;
+            subtotalPriceLabel.Text = calculateSubtotalPrice().ToString("$0.00");
             totalPriceLabel.Text = calculateTotalPrice().ToString("$0.00");
+        }
+
+        private decimal calculateSubtotalPrice()
+        {
+            decimal subtotalPrice = 0.00M;
+            foreach (Tuple<Models.MenuItem, int> item in this.orderItems)
+            {
+                subtotalPrice += item.Item1.Price * item.Item2;
+            }
+            return subtotalPrice;
         }
 
         private decimal calculateTotalPrice()
         {
-            decimal totalPrice = 0.00M;
-            foreach(Tuple<Models.MenuItem, int> item in this.orderItems)
-            {
-                totalPrice += item.Item1.Price * item.Item2;
-            }
+            var totalPrice = calculateSubtotalPrice();
 
             totalPrice *= (decimal)1.06;
 
@@ -51,6 +58,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
                 orderItems.Remove(item);
                 cartListView.ItemsSource = null;
                 cartListView.ItemsSource = orderItems;
+                subtotalPriceLabel.Text = calculateSubtotalPrice().ToString("$0.00");
                 totalPriceLabel.Text = calculateTotalPrice().ToString("$0.00");
             }
         }
@@ -89,6 +97,7 @@ namespace COP4331_RestaurantSystem_DavidGreen
                 orderItems.Clear();
                 cartListView.ItemsSource = null;
                 cartListView.ItemsSource = orderItems;
+                subtotalPriceLabel.Text = calculateSubtotalPrice().ToString("$0.00");
                 totalPriceLabel.Text = calculateTotalPrice().ToString("$0.00");
                 await DisplayAlert("Order Successful", "Your order has successfully been placed. Thank you!", "OK");
                 await Shell.Current.GoToAsync("..");
