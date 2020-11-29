@@ -6,7 +6,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="6*"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="2*"></RowDefinition>
             </Grid.RowDefinitions>
@@ -40,7 +41,7 @@
                                        VerticalOptions="Center"
                                        FontSize="Medium"
                                        ></Label>
-                                <Label Text="{Binding Item1.Price, StringFormat='{0:0.00}'}"
+                                <Label Text="{Binding Item1.Price, StringFormat='{0:$0.00}'}"
                                        Grid.Row="0"
                                        Grid.Column="1"
                                        HorizontalOptions="End"
@@ -61,8 +62,31 @@
             </ListView>
 
             <StackLayout Orientation="Horizontal" Grid.Row="2">
+                <Label x:Name="subtotalLabel"
+                       Text="Subtotal"
+                       HorizontalOptions="StartAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       HorizontalTextAlignment="Start"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       FontSize="Medium"
+                       Margin="10,0,0,0"
+                       ></Label>
+                <Label x:Name="subtotalPriceLabel"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       FontSize="Medium"
+                       Text="{Binding Text, StringFormat='{0:0.00}'}"
+                       Margin="0,0,10,0"
+                       ></Label>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal" Grid.Row="3">
                 <Label x:Name="priceLabel"
-                       Text="Price"
+                       Text="Total"
                        HorizontalOptions="StartAndExpand"
                        VerticalOptions="FillAndExpand"
                        HorizontalTextAlignment="Start"
@@ -84,7 +108,7 @@
             </StackLayout>
 
             <Button x:Name="placeOrderButton"
-                    Grid.Row="3"
+                    Grid.Row="4"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center"
                     Text="Place Order"
