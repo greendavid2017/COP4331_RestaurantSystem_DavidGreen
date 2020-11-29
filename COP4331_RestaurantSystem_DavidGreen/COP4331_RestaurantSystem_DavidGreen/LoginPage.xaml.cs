@@ -41,11 +41,11 @@ namespace COP4331_RestaurantSystem_DavidGreen
                     // If device does not support secure storage may get an exception
                 }
 
-                await DisplayAlert("Hooray!", "Hooray!", "Hooray!");
+                //await DisplayAlert("Hooray!", "Hooray!", "Hooray!");
             }
             else
             {
-                await DisplayAlert("Oh no!", "Oh no!", "Oh no!");
+                await DisplayAlert("Login Failed", "Your username or password is incorrect. Please try again.", "OK");
             }
         }
 
