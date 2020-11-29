@@ -69,6 +69,7 @@
                        VerticalTextAlignment="Center"
                        FontAttributes="Bold"
                        FontSize="Medium"
+                       Margin="10,0,0,0"
                        ></Label>
                 <Label x:Name="totalPriceLabel"
                        HorizontalOptions="EndAndExpand"
@@ -78,6 +79,7 @@
                        FontAttributes="Bold"
                        FontSize="Medium"
                        Text="{Binding Text, StringFormat='{0:0.00}'}"
+                       Margin="0,0,10,0"
                        ></Label>
             </StackLayout>
 

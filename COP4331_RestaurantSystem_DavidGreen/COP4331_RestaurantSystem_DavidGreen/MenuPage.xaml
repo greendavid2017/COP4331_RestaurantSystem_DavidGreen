@@ -68,7 +68,7 @@
                                        VerticalOptions="Center"
                                        FontSize="Medium"
                                        ></Label>
-                                <Label Text="{Binding Price}"
+                                <Label Text="{Binding Price, StringFormat='{0:$0.00}'}"
                                        Grid.Row="0"
                                        Grid.Column="1"
                                        HorizontalOptions="End"
@@ -92,9 +92,21 @@
                        TextChanged="menuSearchBar_TextChanged"
                        ></SearchBar>
             <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand"
                          Grid.Row="3">
-                <Button x:Name="logOutButton" Clicked="logOutButton_Clicked" Text="Log Out" HorizontalOptions="Center"></Button>
-                         <Button x:Name="viewOrderButton" Clicked="openPlaceOrderPage" Text="View Order" HorizontalOptions="Center"></Button>
+                <Button x:Name="logOutButton"
+                        Clicked="logOutButton_Clicked"
+                        Text="Log Out"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="Center"
+                        ></Button>
+                <Button x:Name="viewOrderButton"
+                        Clicked="openPlaceOrderPage"
+                        Text="View Order"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="Center"
+                        ></Button>
             </StackLayout>
             
             
